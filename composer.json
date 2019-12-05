@@ -1,0 +1,15 @@
+{
+  "name": "gns/symfony-rest-api-template",
+  "type": "template",
+  "description": "A symfony 4.4 + docker compose project template to make creating new REST API projects easier.",
+  "keywords": ["template"],
+  "homepage": "https://github.com/gns-it/symfony-rest-api-template",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Sergey Hashimov",
+      "email": "hashimov.sergey@gmail.com",
+      "role": "Developer"
+    }
+  ]
+}
