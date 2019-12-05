@@ -1,0 +1,9 @@
+{% extends 'Email/base.html.twig' %}
+
+{% block title %}New private message received{% endblock %}
+
+{% block text %}New private message received from {{ sender.name }}({{ sender.email }}){% endblock %}
+
+{% block buttonUrl %}{{ url }}{% endblock %}
+
+{% block buttonText %}Open{% endblock %}

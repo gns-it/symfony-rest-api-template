@@ -1,0 +1,239 @@
+body{
+    margin: unset;
+}
+header{
+    display: none;
+}
+.opblock-summary-path > a.nostyle{
+    width: 540px
+}
+.swagger-ui .btn.authorize_default {
+    line-height: 1;
+    display: inline;
+    color: #ee821b;
+    border-color: #ee821b;
+    background-color: transparent;
+    margin-left: 12.5px;
+}
+#operations-tag-default > a > span:before{
+    content: "Auth ";
+}
+.download-contents{
+    display: none;
+}
+.swagger-ui .btn.authorize_default span {
+    float: left;
+}
+
+.swagger-ui .btn.authorize_default svg {
+    fill: #ee821b
+}
+.swagger-ui .btn.show_documents {
+    color: #27848e;
+    border-color: #27848e;
+}
+
+.red {
+    background-color: red !important;
+}
+
+#search {
+    position: absolute;
+    left: 0;
+    margin-left: 120px;
+}
+
+.to_top {
+    left: 50%;
+    position: relative;
+    cursor: pointer;
+}
+
+#toTop {
+    display: none;
+    background-color: #27848e;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    border-radius: 4px;
+    margin: 30px;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    transition: background-color .3s;
+    z-index: 1000;
+}
+#toBottom {
+    background-color: #27848e;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    border-radius: 4px;
+    margin: 30px;
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    transition: background-color .3s;
+    z-index: 1000;
+}
+
+#toTop:hover {
+    cursor: pointer;
+    background-color: #333;
+}
+
+#toTop:active {
+    background-color: #555;
+}
+
+#toTop::after {
+    font-weight: normal;
+    font-style: normal;
+    font-size: 2em;
+    line-height: 50px;
+}
+
+#toTop > span {
+    position: relative;
+    margin: auto;
+    top: 26%;
+    color: white;
+}
+
+#toTop:hover > span {
+    color: #ee821b;
+}
+#toBottom:active {
+    background-color: #555;
+}
+
+#toBottom::after {
+    font-weight: normal;
+    font-style: normal;
+    font-size: 2em;
+    line-height: 50px;
+}
+
+#toBottom > span {
+    position: relative;
+    margin: auto;
+    top: 26%;
+    color: white;
+}
+
+#toBottom:hover > span {
+    color: #ee821b;
+}
+
+#draggable-area {
+    position: fixed;
+    top: 70px;
+    right: 0;
+    bottom: 0px;
+    left: 0;
+    z-index: -100;
+    overflow: auto;
+}
+
+.window{
+    position: fixed;
+    width: 920px;
+    height: 500px;
+    top: 88px;
+    left: 275px;
+    z-index: 1;
+    background: #51545E;
+    border-radius: 2px;
+}
+
+.frame{
+    position: relative;
+    width: 1220px;
+    height: 638px;
+    top: 0;
+    left: 3px;
+    border: none;
+    -ms-zoom: 0.75;
+    -moz-transform: scale(0.75);
+    -moz-transform-origin: 0 0;
+    -o-transform: scale(0.75);
+    -o-transform-origin: 0 0;
+    -webkit-transform: scale(0.75);
+    -webkit-transform-origin: 0 0;
+}
+.mini > .frame{
+    display:none;
+}
+.mini.window{
+    width: 200px;
+    height: 20px;
+}
+.window-title {
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    top: -1px;
+    margin: 2px;
+    color: white;
+    font-size: 14px;
+    font-style: italic;
+    left: 3px;
+    font-family: Open Sans,sans-serif;
+}
+button.authorization__btn{
+    display: none !important;
+}
+.opblock-summary-description{
+    font-size: smaller !important;
+    color: #005D67 !important;
+    text-align: center !important;
+}
+.filtration-operators tr:hover{
+    background-color: #d3e2ff;
+}
+.filtration-operators tr td{
+    padding-left: 10px !important;
+}
+.tingle-modal-box, .swagger-ui *
+{
+    font-family: Consolas, monaco, monospace !important;
+    font-weight: 100!important;
+}
+.operator-description-info{
+    color: #27848e;
+}
+.close-window {
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    top: -1px;
+    margin: 2px;
+    /*left: 21px;*/
+    color: white;
+    float: right;
+}
+
+.new-tab {
+    text-decoration: none;
+    cursor: pointer;
+    position: relative;
+    margin: 2px;
+    z-index: 1;
+    top: -2px;
+    /*left: -37px;*/
+    color: white;
+    float: right;
+}
+
+.minimize {
+    text-decoration: none;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    margin: 2px;
+    top: -2px;
+    /*right: 7px;*/
+    color: white;
+    float: right;
+}
+

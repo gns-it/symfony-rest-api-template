@@ -1,0 +1,66 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  FOS\OAuthServerBundle\Storage\OAuthStorage:
+    public: true
+    autowire: true
+    arguments:
+      $userProvider: '@App\Service\Security\User\UserProvider'
+    calls:
+      - method: setGrantExtension
+        arguments:
+          - 'http://google.com'
+          - '@App\Service\Security\GrantExtension\GoogleGrantExtension'
+      - method: setGrantExtension
+        arguments:
+          - 'http://facebook.com'
+          - '@App\Service\Security\GrantExtension\FacebookGrantExtension'
+
+  # JMS Serializer camel case naming strategy
+  jms_serializer.serialized_name_annotation_strategy:
+    class: App\Serializer\CustomNameAnnotationStrategy
+    arguments:
+      - '@jms_serializer.camel_case_naming_strategy'
+
+  App\Service\Security\GrantExtension\SuperGrantExtension:
+    public: false
+
+  App\Service\Security\GrantExtension\GoogleGrantExtension:
+    parent: App\Service\Security\GrantExtension\SuperGrantExtension
+    public: true
+    autowire: true
+    autoconfigure: false
+    calls:
+      - [setOauthClient, ['@KnpU\OAuth2ClientBundle\Client\Provider\GoogleClient']]
+
+  App\Service\Security\GrantExtension\FacebookGrantExtension:
+    public: true
+    autowire: true
+    parent: App\Service\Security\GrantExtension\SuperGrantExtension
+    autoconfigure: false
+    calls:
+      - [setOauthClient, ['@KnpU\OAuth2ClientBundle\Client\Provider\FacebookClient']]
+
+  Symfony\Bundle\MakerBundle\Doctrine\DoctrineHelper:
+    public: true
+    arguments:
+      $entityNamespace: App\Entity
+      $registry: '@doctrine'
+
+  App\Service\OAuth\OAuth2:
+    public: true
+    arguments: ['@FOS\OAuthServerBundle\Storage\OAuthStorage']
+
+  stopwatch:
+    alias: debug.stopwatch
+    public: true
+
+  App\EventListener\Entity\UuidListener:
+    tags:
+    - { name: doctrine.event_listener, event: prePersist, method: prePersist }
+
+  App\Service\Media\FormatThumbnail:
+    arguments:
+      $defaultFormat: 'jpg'

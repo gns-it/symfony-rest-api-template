@@ -1,0 +1,18 @@
+{% macro formatContext(context) %}
+    <div class="row no-gutters align-items-center" style="font-family: Consolas, monaco, monospace !important;">
+        {% for key, val in context %}
+            {% set is_json = val is iterable  %}
+            {% set val = val is iterable? val|json_encode:val  %}
+            <div class="col-md-2 mr-2 text-left">
+                <div class="text-xs text-primary mb-1">{{ key|capitalize }}</div>
+            </div>
+            <div class="col-md-1 mr-2 text-left">
+                <div class="">|</div>
+            </div>
+            <div class="col-auto">
+                <div class="text-xs copy-me text-danger mb-1" title="Click to copy">{{ val }}<small>*</small></div>
+            </div>
+            <hr class="w-100 p-0 m-0">
+        {% endfor %}
+    </div>
+{% endmacro %}

@@ -1,0 +1,27 @@
+nelmio_api_doc:
+  models: { use_jms: true }
+  areas:
+    path_patterns: # an array of regexps
+      - '^/api/%env(API_VERSION)%/(?!doc|internal).*$'
+  documentation:
+    swagger: '1.0'
+    info:
+      title: PRIVATE_ISLAND
+      version: 0.0.1
+    produces: ["application/json","application/xml", "multipart/form-data"]
+    securityDefinitions:
+      Bearer:
+        type: apiKey
+        description: 'Value: Bearer {jwt}'
+        name: Authorization
+        in: header
+    security:
+    - Bearer: []
+      default_auth:
+        client_credentials: '{
+          "client_id": "%env(resolve:OAUTH2_CLIENT_ID)%",
+          "client_secret": "%env(resolve:OAUTH2_CLIENT_SECRET)%",
+          "grant_type": "password"
+        }'
+        user_credentials: '%env(resolve:API_DOC_USERS)%'
+      api_key: [session]

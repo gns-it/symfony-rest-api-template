@@ -1,0 +1,8 @@
+parameters:
+  API_VERSION: '%env(API_VERSION)%'
+  APP_LOCALE: '%env(APP_LOCALE)%'
+  MAILER_URL: '%env(MAILER_URL)%'
+  MAILER_FROM: '%env(MAILER_FROM)%'
+  RETRY_TTL: '%env(RETRY_TTL)%'
+  INVITE_URL: '%env(INVITE_URL)%'
+  JOIN_URL: '%env(JOIN_URL)%'

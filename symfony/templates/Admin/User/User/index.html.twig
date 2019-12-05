@@ -1,0 +1,90 @@
+{% extends 'Admin/base.html.twig' %}
+
+{% block heading_text %}{{ type }} users{% endblock %}
+
+ {% block heading_pull_right %}
+     <div class="dropdown ">
+         <button class="btn bg-theme-custom btn-sm dropdown-toggle" type="button" id="dropdownMenuButton"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+             {{ app.request.get('type')|capitalize }}
+         </button>
+         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+             {% for type in types|filter(t => t != app.request.get('type')) %}
+                 <a class="dropdown-item" href="{{ path('admin_user_index', {'type':type}) }}">{{ type|capitalize }}</a>
+             {% endfor %}
+         </div>
+     </div>
+ {% endblock %}
+{% set query = app.request.query.all() %}
+{% block body %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold">List</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+
+                {% include('Admin/Common/list_size_and_search.html.twig') %}
+
+                <table class="table table-bordered table-hover table-striped text-center align-middle" id="dataTable">
+                    <thead>
+                    <tr>
+                        <th>Avatar</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Created</th>
+                        <th>Updated</th>
+                        <th>Enabled</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for entity in entities %}
+                        <tr>
+                            <td class="align-middle">
+                                {% if entity.avatar and file_exists(entity.avatar) %}
+                                    <img class="avatar" src="{% path entity.avatar,'reference' %}"
+                                         alt="Generic placeholder image">
+                                {% else %}
+                                    <img class="avatar" src="{{asset('assets/admin/img/user_def.png')}}"
+                                         alt="Generic placeholder image">
+                                {% endif %}
+                            </td>
+                            <td class="align-middle">{{ entity.email }}</td>
+                            <td class="align-middle">{{ entity.phone|default('no-phone') }}</td>
+                            <td class="align-middle">{{ entity.createdAt.format('Y-m-d H:i:s') }}</td>
+                            <td class="align-middle">{{ entity.updatedAt.format('Y-m-d H:i:s') }}</td>
+                            <td class="align-middle">
+                                <a data-hint="{{ entity.enabled ?'User will not be able to browse app.':'User will be enabled.' }}"
+                                   data-action="{{ path('admin_user_toggle', {'uuid':entity.uuid}) }}" href="#"
+                                   class="{{ entity.isSuperAdmin()?'disabled':'' }} btn btn-outline-info border-0 btn-circle confirmAction">
+                                    <i class="fas fa-{{ entity.enabled ?'check-circle text-primary':'circle text-danger' }}"></i>
+                                </a>
+                            </td>
+                            <td class="align-middle ">
+                                <a data-icon="error"
+                                   data-hint="Once deleted, you will not be able to restore this record."
+                                   data-action="{{ path('admin_user_delete', {'uuid':entity.uuid}) }}" href="#"
+                                   class="{{ entity.isSuperAdmin()?'disabled':'' }}  btn btn-outline-info border-0 btn-circle confirmAction">
+                                    <i class="fas fa-trash text-black-50"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                {{ knp_pagination_render(entities) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block css %}
+    <style>
+        .avatar {
+            vertical-align: middle;
+            width: 50px;
+            height: 50px;
+            border-radius: 30%;
+        }
+    </style>
+{% endblock %}

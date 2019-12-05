@@ -1,0 +1,14 @@
+/docker/logs
+/docker/.data
+/.env
+/.idea
+/backup.sql
+/symfony/public/doc/
+/docker/redis/data/
+/websocket/node_modules/
+/websocket/npm-debug.log
+/npm-debug.log
+/websocket/default.log
+/docker/rabbit/
+/docker/supervisor/tmp/
+/data.db

@@ -1,0 +1,21 @@
+nelmio_api_doc:
+  models:
+    use_jms: true
+  areas:
+    path_patterns: # an array of regexps
+      - '^/api/%env(API_VERSION)%/(?!doc|internal).*$'
+  documentation:
+    swagger: '1.0'
+    info:
+      title: PRIVATE_ISLAND
+      version: 0.0.1
+    produces: ["application/json","application/xml", "multipart/form-data"]
+    securityDefinitions:
+      Bearer:
+        type: apiKey
+        description: 'Value: Bearer {jwt}'
+        name: Authorization
+        in: header
+    security:
+    - Bearer: []
+      api_key: [session]

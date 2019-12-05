@@ -1,0 +1,9 @@
+{% extends 'Email/base.html.twig' %}
+
+{% block title %}New user upgrade{% endblock %}
+
+{% block text %}New user upgrade received from {{ upgrade.user.email }}{% endblock %}
+
+{% block buttonUrl %}{{ url('admin_notification_index',{'filterField':'a_not.uuid','filterValue':upgrade.uuid}) }}{% endblock %}
+
+{% block buttonText %}Open{% endblock %}

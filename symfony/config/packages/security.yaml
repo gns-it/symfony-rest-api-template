@@ -1,0 +1,81 @@
+security:
+    encoders:
+        App\Entity\User\User:
+            algorithm: auto
+        Symfony\Component\Security\Core\User\User: auto
+    role_hierarchy:
+        ROLE_PROFILE_FILLED: ROLE_USER
+        ROLE_CUSTOMER: ROLE_USER
+        ROLE_BUSINESS: ROLE_CUSTOMER
+        ROLE_SUPER_ADMIN: ROLE_BUSINESS
+
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    providers:
+        # used to reload user from session & other features (e.g. switch_user)
+        app_user_provider:
+            id: App\Service\Security\User\UserProvider
+
+        machine_users:
+            memory:
+                users:
+                    stripe: { password: '%env(MACHINE_USER_STRIPE_PASSWORD_HASH)%', roles: ['ROLE_USER'] }
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js|develop)/
+            security: false
+
+        oauth_token:
+            pattern:    '^/api/%env(API_VERSION)%/oauth/token'
+            security:   false
+
+        api_doc:
+            pattern:  ^/api/doc
+            security: false
+
+        public_api:
+            pattern: '^/api/%env(API_VERSION)%/public'
+            security: false
+
+        internal:
+            pattern: '^/api/%env(API_VERSION)%/internal'
+            security: true
+            provider: machine_users
+            http_basic:
+                realm: internal
+                provider: machine_users
+
+        api:
+            security: true
+            pattern:    ^/api
+            fos_oauth:  true
+            provider: app_user_provider
+            stateless:  true
+            anonymous:  false # can be omitted as its default value
+            user_checker: App\Service\Security\User\UserChecker
+
+        main:
+            pattern:  ^/
+            anonymous: true
+            provider: app_user_provider
+            form_login:
+                login_path: app_login
+                check_path: login_check
+                default_target_path: admin_home
+                failure_path: homepage
+            logout:
+                path:   /logout
+                target: /
+            guard:
+                authenticators: ['App\Security\AppCustomAuthenticator']
+            user_checker: App\Service\Security\User\UserChecker
+
+        public:
+            pattern: '^/public'
+            security: false
+
+    # Easy way to control access for large sections of your site
+    # Note: Only the *first* access control that matches will be used
+    access_control:
+        - { path: ^/admin, roles: ROLE_SUPER_ADMIN }
+        - { path: ^/api/v1/(?!(profile|file)).*, roles: ROLE_PROFILE_FILLED }

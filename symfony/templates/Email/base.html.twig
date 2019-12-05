@@ -1,0 +1,143 @@
+
+{% block body_html %}
+    <body>
+    <div class="body" style="margin: 0;
+    padding: 0; color: #303030; width: 100%;">
+        <div class="container" style="max-width: 100%; margin: auto; padding-top: 46px;">
+            <table class="main" style="margin: auto;
+    width: 1008px;
+    border-spacing: 0; background-color: #ffffff;">
+                <tbody>
+                <tr>
+                    <td class="main-top" align="center">
+                        <img src="{{ asset('email/images/confirm.png') }}" alt="image">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main-middle" style="width: 100%;
+    padding-top: 24px;
+    box-sizing: border-box;" align="center">
+                        <h1 class="main__title" style="margin: 0;
+    margin-bottom: 20px;
+    font-size: 24px;
+    line-height: 33px;
+    font-weight: normal;">{% block title %}{% endblock %}</h1>
+                        <div class="main__text" style="font-size: 14px;
+    letter-spacing:0.25px;
+    line-height: 20px; font-family: 'Noto Sans Regular', sans-serif;">
+                            {% block text %}{% endblock %}
+                        </div>
+                        <a href="{% block buttonUrl %}{% endblock %}" class="btn" style="width: 168px;
+    height: 40px;
+    margin: 40px auto;
+    display: block;
+    background-color: #5576DC;
+    border-radius: 4px;
+    color: #ffffff;
+    font-size: 10px;
+    font-family: 'Noto Sans Regular', sans-serif;
+    font-weight: 600;
+    line-height: 42px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+text-decoration: none;">
+                            {% block buttonText %}{% endblock %}
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <style>
+        @font-face {
+            font-family: 'Noto Sans Regular';
+            font-display: swap;
+            src: url('email/fonts/NotoSans-Regular.eot');
+            src: local('Noto Sans Regular'), local('NotoSans-Regular'),
+            url('email/fonts/NotoSans-Regular.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Noto Sans Bold';
+            font-display: swap;
+            src: url('email/fonts/NotoSans-Bold.eot');
+            src: local('Noto Sans Bold'), local('NotoSans-Regular'),
+            url('email/fonts/NotoSans-Bold.woff') format('woff');
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        * {
+            font-family: 'Noto Sans Regular', sans-serif;
+            color: #303030;
+        }
+
+        /*
+        body{
+          margin: 0;
+          padding: 0;
+        }
+        a{
+          text-decoration: none;
+        }
+        .body{
+          width: 100%;
+          padding: 25px 0;
+          font-size: 14px;
+        }
+        .container{
+          padding-top: 46px;
+          width: 1008px;
+          margin: auto;
+          max-width: 100%;
+        }
+        .main {
+          border-spacing: 0;
+        }
+
+        .main-middle{
+          width: 100%;
+          padding-top: 24px;
+          box-sizing: border-box;
+        }
+
+        .main-top img{
+          margin:auto;
+          max-width: 100%;
+        }
+        .main__title{
+          margin: 0;
+          margin-bottom: 20px;
+          font-size: 24px;
+          line-height: 33px;
+          font-weight: normal;
+        }
+        .main__text {
+          font-size: 14px;
+          letter-spacing:0.25px;
+          line-height: 20px;
+        }
+        .btn{
+          width: 168px;
+          height: 40px;
+          margin: 40px auto;
+          display: block;
+          background-color: #5576DC;
+          border-radius: 4px;
+          color: #fff;
+          font-size: 10px;
+          font-weight: 600;
+          line-height: 42px;
+          text-align: center;
+          text-transform: uppercase;
+          letter-spacing: 1.5px;
+        }
+    </style>
+
+    </body>
+
+{% endblock %}

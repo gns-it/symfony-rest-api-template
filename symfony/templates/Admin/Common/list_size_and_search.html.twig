@@ -1,0 +1,53 @@
+{% set query = app.request.query.all() %}
+{% if query.limit is defined %}
+    {{ app.session.set('def_limit', query.limit) }}
+{% endif %}
+{% set limit = query.limit|default(app.session.get('def_limit')|default(10)) %}
+
+{% if entities is defined %}
+    {% set limit = limit|default(entities.getItemNumberPerPage()) %}
+{% endif %}
+<form id="search-form" class="form-inline col-md-12 mb-md-3">
+    <div class="form-group col-md-10 ">
+        Show
+        <select name="limit" id="limit" onchange="(function f() {
+                    console.log(document.getElementById('search-form-submit').click())
+                })()"
+                class="custom-select col-md-2 custom-select-sm form-control form-control-sm ml-md-1 mr-md-1">
+            <option value="10" {{ limit == 10?'selected':'' }}>
+                10
+            </option>
+            <option value="25" {{ limit == 25?'selected':'' }}>
+                25
+            </option>
+            <option value="50" {{ limit == 50?'selected':'' }}>
+                50
+            </option>
+            <option value="100" {{ limit  == 100?'selected':'' }}>
+                100
+            </option>
+        </select>
+        entries
+    </div>
+    <div class="form-group col-md-2 -pull-right">
+        <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend">
+                <button id="search-clear" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm" onclick="(function f() {
+                        document.getElementById('search-form-input').value = ''
+                })()">
+                    <i class="fa fa-eraser" onclick="(function f() {
+                        document.getElementById('search-form-input').value = ''
+                })()"></i>
+                </button>
+            </div>
+            <input id="search-form-input" type="text" value="{{ query.search|default('') }}" class="form-control" name="search" placeholder="Search"
+                   aria-describedby="basic-addon2">
+            <div class="input-group-append">
+                <button id="search-form-submit" type="submit"
+                        class="d-none d-sm-inline-block btn btn-sm bg-theme-custom shadow-sm">
+                    <i class="fa fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

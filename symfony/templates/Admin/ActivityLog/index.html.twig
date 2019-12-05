@@ -1,0 +1,100 @@
+{% extends 'Admin/base.html.twig' %}
+
+{% block heading_text %}Activity{% endblock %}
+
+ {% block heading_pull_right %}
+     {#     <a href="{{ path('admin_event_category_create') }}"#}
+     {#        class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i#}
+     {#                 class="fas fa-plus fa-sm text-white-50"></i> Create</a>#}
+ {% endblock %}
+{% import "Admin/ActivityLog/context.html.twig" as formatter %}
+{% block body %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold">List</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                {% include('Admin/Common/list_size_and_search.html.twig') %}
+                <table class="table table-bordered text-center align-middle">
+                    <thead>
+                    <tr>
+                        <th>Message</th>
+                        <th colspan="2">Context</th>
+                        <th>Level</th>
+                        <th>User</th>
+                        <th>Created</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for entity in entities.items %}
+                        <tr>
+                            <td rowspan="{{ entity.context|length }}" class="align-middle">{{ entity.message }}</td>
+                            {% for key, val in entity.context %}
+                                {% if loop.first %}
+                                    <td class="align-middle p-2">
+                                        {{ key }}
+                                    </td>
+                                    <td class="text-left copy-me text-danger p-2">
+                                        {{ val }}
+                                    </td>
+                                {% endif %}
+                            {% endfor %}
+                            <td rowspan="{{ entity.context|length }}"
+                                class="align-middle text-{{ entity.levelName|lower }}">{{ entity.levelName|lower|capitalize }}</td>
+                            <td rowspan="{{ entity.context|length }}"
+                                class="align-middle text-xs">{{ entity.extra.user|default('false')|raw }}</td>
+                            <td rowspan="{{ entity.context|length }}"
+                                class="align-middle">{{ entity.createdAt.format('Y-m-d H:i:s') }}</td>
+                        </tr>
+                        {% for key, val in entity.context %}
+                            {% if not loop.first %}
+                                <tr>
+                                    <td class="align-middle p-2">
+                                        {{ key }}
+                                    </td>
+                                    <td class="text-left copy-me text-danger p-2">
+                                        {{ val }}
+                                    </td>
+                                </tr>
+                            {% endif %}
+
+                        {% endfor %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+                {{ knp_pagination_render(entities) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block css %}
+    <style>
+        .copy-me{
+            font-family: Consolas, monaco, monospace !important;
+            font-size: small;
+        }
+    </style>
+{% endblock %}
+{% block js %}
+    <script>
+        $(document).ready(() => {
+            const copyToClipboard = str => {
+                const el = document.createElement('textarea');
+                el.value = str;
+                document.body.appendChild(el);
+                el.select();
+                document.execCommand('copy');
+                document.body.removeChild(el);
+            };
+            $(".copy-me").click(e => {
+                const t = $(e.currentTarget);
+                t.toggleClass('text-danger');
+                copyToClipboard($(e.currentTarget).text());
+                setTimeout(() => {
+                    t.toggleClass('text-danger');
+                }, 100);
+            })
+        })
+    </script>
+{% endblock %}

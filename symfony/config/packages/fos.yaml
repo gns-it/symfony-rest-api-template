@@ -1,0 +1,31 @@
+
+#Fos Rest
+fos_rest:
+    exception:
+        enabled: true
+    body_converter:
+        enabled: true
+    param_fetcher_listener: true
+    body_listener: true
+    disable_csrf_role: ROLE_API
+    format_listener:
+        enabled: true
+        rules:
+        - { path: '^/(_(profiler|wdt)|css|images|js)/', priorities: ['json', 'xml'], fallback_format: html, prefer_extension: false }
+        - { path: '^/', priorities: ['json', 'xml', 'html'], fallback_format: json, prefer_extension: false }
+    view:
+        view_response_listener: false
+    serializer:
+        serialize_null: true
+
+#Fos OAUTH
+fos_oauth_server:
+    db_driver: orm
+    client_class: App\Entity\OAuthServer\Client
+    access_token_class: App\Entity\OAuthServer\AccessToken
+    refresh_token_class: App\Entity\OAuthServer\RefreshToken
+    auth_code_class: App\Entity\OAuthServer\AuthCode
+    service:
+        user_provider: app_user_provider
+        options:
+            access_token_lifetime: 31449600

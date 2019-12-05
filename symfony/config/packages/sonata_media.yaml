@@ -1,0 +1,27 @@
+sonata_media:
+    class:
+        media: App\Entity\Media\Media
+        gallery: App\Entity\Media\Gallery
+        gallery_has_media: App\Entity\Media\GalleryHasMedia
+    db_driver: doctrine_orm # or doctrine_mongodb, doctrine_phpcr it is mandatory to choose one here
+    default_context: default # you need to set a context
+    contexts:
+        default:  # the default context is mandatory
+            providers:
+                - sonata.media.provider.file
+        image:
+            providers:
+                - sonata.media.provider.image
+    providers:
+        image:
+            thumbnail:  App\Service\Media\FormatThumbnail
+            allowed_extensions: ['jpg', 'png', 'jpeg']
+            allowed_mime_types: ['image/pjpeg', 'image/jpeg', 'image/png', 'image/x-png']
+
+    cdn:
+        server:
+            path: /uploads # http://media.sonata-project.org/
+    filesystem:
+        local:
+            directory:  "%kernel.root_dir%/../public/uploads"
+            create:     false
