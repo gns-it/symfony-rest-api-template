@@ -5,6 +5,7 @@
   "keywords": ["template"],
   "homepage": "https://github.com/gns-it/symfony-rest-api-template",
   "license": "MIT",
+  "minimum-stability": "stable",
   "authors": [
     {
       "name": "Sergey Hashimov",
