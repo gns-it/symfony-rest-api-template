@@ -1,4 +1,4 @@
-# Docker Symfony 4 (PHP7-FPM - NGINX - MySQL - RABBIT_MQ)
+# Docker Symfony 4 (PHP7-FPM - NGINX - MySQL)
 
 
 ## Installation
