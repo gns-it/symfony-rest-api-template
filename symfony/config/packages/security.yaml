@@ -18,7 +18,6 @@ security:
         machine_users:
             memory:
                 users:
-                    stripe: { password: '%env(MACHINE_USER_STRIPE_PASSWORD_HASH)%', roles: ['ROLE_USER'] }
 
     firewalls:
         dev:
