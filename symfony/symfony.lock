@@ -126,8 +126,8 @@
     "gedmo/doctrine-extensions": {
         "version": "v2.4.37"
     },
-    "gns/data-filter-bundle": {
-        "version": "v1.0"
+    "gns/filter-bundle": {
+        "version": "v1.1"
     },
     "guzzlehttp/guzzle": {
         "version": "6.3.3"
